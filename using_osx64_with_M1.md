@@ -13,16 +13,16 @@ Rosetta is an emulator (or translator depending on who you ask) that translates 
 ## Create Conda Environment
 Now create a dedicated Conda environment to run osx-64 packages. 
 
-`CONDA_SUBDIR=osx-64 conda create -n your_environment_name python
-conda activate your_environment_name
-conda env config vars set CONDA_SUBDIR=osx-64  
-conda deactivate
-conda activate your_environment_name`
+`CONDA_SUBDIR=osx-64 conda create -n your_environment_name python`
+`conda activate your_environment_name`
+`conda env config vars set CONDA_SUBDIR=osx-64`
+`conda deactivate`
+`conda activate your_environment_name`
 
 Now try this following code.
 
-`python -c "import platform;print(platform.machine())"  # Should print "x86_64"
-echo "CONDA_SUBDIR: $CONDA_SUBDIR"  # Should print "CONDA_SUBDIR: osx-64"`
+`python -c "import platform;print(platform.machine())"  # Should print "x86_64"`
+`echo "CONDA_SUBDIR: $CONDA_SUBDIR"  # Should print "CONDA_SUBDIR: osx-64"`
 
 And voila. You can now run osx-64 packages on your M1 Mac! 
 
