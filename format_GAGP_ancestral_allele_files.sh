@@ -9,9 +9,10 @@ for c in ${chrs[@]}; do awk -F '/' '{print $1}' OFS='\t' $c.temp.bed > $c.bed; d
 for c in ${chrs[@]}; do rm $c.temp.bed; done
 
 # run through LiftOver, hg18 --> hg38
+for c in ${chrs[@]}; do ./liftOver '$c'.bed hg18ToHg38.over.chain.gz '$c'_hg38.bed '$c'_unmapped.txt; done
 
 # concat separate files, remove rows with "?", sort, and resplit based on chromosome
-cat chr*.bed > all_chrs_hg38.bed
+cat chr*_hg38.bed > all_chrs_hg38.bed
 awk '{print $1,$3,$4}' OFS='\t' all_chrs_hg38.bed > all_chrs_hg38.txt
 grep -v "?" all_chrs_hg38.txt > filtered_all_chrs_hg38.txt
 sort -V -k1,1 -k2,2 filtered_all_chrs_hg38.txt > sorted_filtered_all_chrs_hg38.txt
