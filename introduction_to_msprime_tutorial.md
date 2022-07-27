@@ -54,13 +54,13 @@ ts2 = msprime.sim_ancestry(1)
 ts2
 ```
 
-**Question**: Has the table changed?
+> **Question**: Has the table changed?  
 
 ```
 display(SVG(ts1.draw_svg(y_axis = True)), SVG(ts2.draw_svg(y_axis = True)))
 ```
 
-**Question**: What about the tree? What has changed?
+> **Question**: What about the tree? What has changed?
 
 ### 1.1 Random Seeds ###
 We can use a random seed to make our analyses replicable. Briefly, this 'seed' is used as the starting point for a random number generator. The specific number does not matter so feel free to choose any value.
@@ -103,7 +103,7 @@ We can also get the identity of that node using the .mrca() function.
 ts.first().mrca(0,1)
 ```
 
-**Question**: If the average pair of genes shared a common ancestor 2N generations ago, what should the TMRCA be for a sample with one diploid?
+> **Question**: If the average pair of genes shared a common ancestor 2N generations ago, what should the TMRCA be for a sample with one diploid?
 
 Let's write a function to repeat this simulation a number of times and get the mean TMRCA across all our replicates.
 ```
@@ -121,7 +121,7 @@ one_sample_generation_mean(10)
 ```
 Now repeat this function a few times, increasing the number of replicates each time.
 
-**Questions**:
+> **Questions**:
 - What happened to the TMRCA as you add replicates? Why?
 - Given that TRMCA in generations = 2N, how many generations (on average) would you have to go back to find the MRCA in a population of 1200 individuals? 5000 individuals?
 
@@ -142,7 +142,7 @@ def one_sample_generation_mean(num_reps):
     return np.mean(t_mrca), total_time
 ```
 Run this with an increasing number of replicates.
-**Question:** How is time scaling with the number of replicates?
+> **Question:** How is time scaling with the number of replicates?
 
 ### 1.3 Increased Sample Size ###
 Let's increase the sample size. Note that I'm going to add some arguments to the .draw_svg function to make viewing the tree a bit easier.
@@ -181,7 +181,7 @@ SVG(ts.draw_svg(size=(600,400), y_axis = True, y_ticks=[0,2,4]))
 
 ### 1.6 Population Size ###
 We can also specify the size of the population from which samples are drawn. We code this using the population size argument.  
-**Question:** What effect should this have on generation time if the population size increases?
+> **Question:** What effect should this have on generation time if the population size increases?
 
 ```
 ts = msprime.sim_ancestry(10, population_size = 100, random_seed = 456)
@@ -230,9 +230,9 @@ mts = msprime.sim_mutations(ts, rate=ratemap, random_seed = 1002)
 SVG(mts.draw_svg(size=(600,400), y_axis = True))
 ```
 
-**Questions**: 
-- Why would one need a mutation rate map for simulations?
-- You will need some justification for the chosen mutation rate in your simulation, which often comes from the literature. There are often a range of rates to choose from in a single species. What might cause variable mutation rate estimates for the same population?
+> **Questions**: 
+> - Why would one need a mutation rate map for simulations?
+> - You will need some justification for the chosen mutation rate in your simulation, which often comes from the literature. There are often a range of rates to choose from in a single species. What might cause variable mutation rate estimates for the same population?
 
 ### 2.1 Accessing Variant Information and Statistics ###
 When we simulate mutations, we are often after the allele frequencies/genotypes at these loci. We can use the .variants() function to retrieve this information.
@@ -241,7 +241,7 @@ When we simulate mutations, we are often after the allele frequencies/genotypes 
 for var in mts.variants():
     print(var.site.position, var.alleles, var.genotypes, sep='\t')
 ```
-**Question**: What do the 0s and 1s mean in the genotype array? Do you have any sites with more than two alleles listed?
+> **Question**: What do the 0s and 1s mean in the genotype array? Do you have any sites with more than two alleles listed?
 
 Let's calculate some statistics. Many of these are built into msprime/tskit! However, if you don't see what you need or want to tinker with a particular statistic, you can easily write a function and apply it to the variant data.
 
@@ -260,7 +260,7 @@ d = mts.diversity(windows = windows)
 print(windows, d, sep = '\n')
 ```
 
-**Exercise**: Let's try something a little more complicated. Recombination is often highest in the distal regions of the chromosome (furthest away from the centromere, which is usually near the center). Write a simulation whose sequence length is at least 10,000 bp, implement a recombination map that captures this general recombination pattern, and calculate pi in 1,000 bp windows. Feel free to tinker with the number of samples, the recombination rate, and the mutation rate.
+> **Exercise**: Let's try something a little more complicated. Recombination is often highest in the distal regions of the chromosome (furthest away from the centromere, which is usually near the center). Write a simulation whose sequence length is at least 10,000 bp, implement a recombination map that captures this general recombination pattern, and calculate pi in 1,000 bp windows. Feel free to tinker with the number of samples, the recombination rate, and the mutation rate.
 
 ## 3. Demography Simulations ##
 We know how to simulate ancestry and mutations. Let's model more realistic scenarios that involve sampling from a dynamic and/or multiple populations. We can use the .Demography() function to create a demographic object and other commands to build the model. Here we will build a model with two extant populations (African (AFR) and Eurasian (EUR)) that share a common ancestor (AFR_EUR) 1000 generations ago. Note that we specify the derived and ancestral populations using their labels. We will sample one individual from each population.
@@ -285,7 +285,7 @@ Note that we even get links to the type of events in our model. These links will
 demography.debug()
 ```
 
-**Question:** What additional information is displayed with .debug()?
+> **Question:** What additional information is displayed with .debug()?
 
 Draw the sequence. Then, repeat the model above but add a sequence length and a low mutation rate. I suggest using a rate >= 1e-7 (0.0000001) to prevent your notebook from freezing up. Draw your tree.
 
@@ -372,13 +372,13 @@ Fst can range from 0 to 1, where 0 reflects less population differentiation and 
 
 As aformentioned, you will tackle Fst in the next module so we will go into more detail shortly.
 
-**Exercise:** Build a demographic model from scratch that meets the following criteria:
-- at least three populations
-- a population split that occurred >= 5000 generations
-- sequence length of 1000
-- a mutation rate and recombination rate
-
-Plot your ancestry (no need to include the mutations) and calculate some statistic such as pi or Fst. I encourage you to try a statistic that we have not yet covered or write your own if you are comfortable doing so. Available statistics from tskit are described here: https://tskit.dev/tskit/docs/stable/stats.html#. I also encourage you to build a model that is relevant to your own interests/research!
+> **Exercise:** Build a demographic model from scratch that meets the following criteria:
+> - at least three populations
+> - a population split that occurred >= 5000 generations
+> - sequence length of 1000
+> - a mutation rate and recombination rate
+> 
+> Plot your ancestry (no need to include the mutations) and calculate some statistic such as pi or Fst. I encourage you to try a statistic that we have not  yet covered or write your own if you are comfortable doing so. Available statistics from tskit are described here: https://tskit.dev/tskit/docs/stable/stats.html#. I also encourage you to build a model that is relevant to your own interests/research!
 
 ## 4. Exporting / Reloading Results ##
 If you find yourself in need of exporting data in a tree sequence format, you can run the following command whose only argument in the file path.
