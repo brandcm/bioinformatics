@@ -340,15 +340,15 @@ SVG(ts.draw_svg(y_axis = True, size =(600, 400)))
 When we simulate multiple populations, we are often interested in differences between them. In the next module, you will estimate a metric of population differentation called Fst. Let's do a quick preview here using msprime. Build the following three population model.
 ```
 demography = msprime.Demography()
-demography.add_population(name = 'ppn', initial_size = 15000)
+demography.add_population(name = 'ppn', initial_size = 18000)
 demography.add_population(name = 'ptt', initial_size = 30000)
-demography.add_population(name = 'ptv', initial_size = 10000)
-demography.add_population(name = 'ptt_ptv', initial_size = 20000)
-demography.add_population(name = 'ppn_ptt_ptv', initial_size = 10000)
-demography.add_population_split(time = 5000, derived = ['ptt', 'ptv'], ancestral = 'ptt_ptv')
-demography.add_population_split(time = 20000, derived = ['ppn', 'ptt_ptv'], ancestral = 'ppn_ptt_ptv')
-ts = msprime.sim_ancestry(samples={'ppn': 5, 'ptt': 5, 'ptv': 5}, demography = demography, sequence_length = 1000, random_seed = 2578)
-mts = msprime.sim_mutations(ts, rate=0.00001, random_seed = 245)
+demography.add_population(name = 'ptv', initial_size = 15000)
+demography.add_population(name = 'ptt_ptv', initial_size = 15000)
+demography.add_population(name = 'ppn_ptt_ptv', initial_size = 20000)
+demography.add_population_split(time = 20000, derived = ['ptt', 'ptv'], ancestral = 'ptt_ptv')
+demography.add_population_split(time = 75200, derived = ['ppn', 'ptt_ptv'], ancestral = 'ppn_ptt_ptv')
+ts = msprime.sim_ancestry(samples={'ppn': 5, 'ptt': 5, 'ptv': 5}, demography = demography, sequence_length = 1000000, random_seed = 6783)
+mts = msprime.sim_mutations(ts, rate=1.25e-8, random_seed = 85296)
 ts
 ```
 
@@ -368,7 +368,7 @@ mts.Fst(sample_sets=[ts.samples(population = 0), ts.samples(population = 2)])
 mts.Fst(sample_sets=[ts.samples(population = 1), ts.samples(population = 2)])
 ```
 
-Fst can range from 0 to 1, where 0 reflects less population differentiation and 1 reflect more population differentiation. You should observe a lower value between the populations that diverged closer to the present and higher values between the populations that diverged deeper in the past. Note: sometimes you will get a negative Fst value. Treat such values as 0.
+Fst can range from 0 to 1, where 0 reflects less population differentiation and 1 reflect more population differentiation. You should observe a lower value between the populations that diverged closer to the present and higher values between the populations that diverged deeper in the past. However, a lot of parameters can affect this metric. Note: sometimes you will get a negative Fst value. This is due to the bias correction in the Weir and Cockerham (1984) version of Fst that msprime uses. Treat such values as 0.
 
 As aformentioned, you will tackle Fst in the next module so we will go into more detail shortly.
 
