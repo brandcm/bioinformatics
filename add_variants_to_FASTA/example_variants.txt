@@ -1,4 +1,0 @@
-chr1	5	N
-chr1	13	N
-chr1	20	N
-chr1	24	N
