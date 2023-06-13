@@ -1,7 +1,9 @@
 # Using osx64 Programs on M1 Macbooks
 Macbooks with the new Apple M1 chip are incredibly fast and efficient, making them indispensiable for bioinformatics. Unfortunately, some commonly used conda packages (particularly those in the Bioconda channel) are not currently available for the native osx-arm64 assembly if your conda was installed for Apple M1 (arm64). If you attempt to install a package in conda, you will receive the following error: 
 
+```
 PackagesNotFoundError: The following packages are not available from current channels:
+```
 
 There are a handful of solutions to this problem and I describe below what I think is the most straightforward approach.
 
